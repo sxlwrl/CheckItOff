@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="style_main.css" />
+        <link rel="icon" href="img/head_icon.jpg" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
+            rel="stylesheet"
+        />
+        <title>CheckItOff</title>
+        <script defer src="script_main.js"></script>
+    </head>
+    <body>
+        <main>
+            <section class="section--welcome">
+                <!--            <h2 class="label" id="label&#45;&#45;welcome">Welcome</h2>-->
+            </section>
+
+            <section class="section--login">
+                <img src="img/logo_main.png" class="logo-main" />
+                <h2 class="label" id="label--1">
+                    CheckItOff: Your personal productivity partner!
+                </h2>
+                <form action="" class="login__form">
+                    <div>
+                        <input
+                            type="text"
+                            class="input-field login-name"
+                            id="login"
+                            placeholder="Login or e-mail"
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="password"
+                            class="input-field login-password"
+                            id="password"
+                            maxlength="64"
+                            placeholder="Password"
+                        />
+                    </div>
+                    <button class="btn btn--login">Login</button>
+                </form>
+                <h3 class="btn-sign-back"><a href="#">Sign up</a></h3>
+<!--                <button class="btn&#45;&#45;login__google">Login with Google</button>-->
+            </section>
+            <section class="section--register hidden">
+                <img src="img/logo_main.png" class="logo-main" />
+                <h2 class="label">
+                    CheckItOff: Your personal productivity partner!
+                </h2>
+                <form action="" class="register__form">
+                    <div>
+                        <input
+                            type="text"
+                            class="input-field register-name"
+                            placeholder="Your name"
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            class="input-field register-login"
+                            placeholder="Login"
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="email"
+                            class="input-field register-email"
+                            placeholder="Email"
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="password"
+                            class="input-field register-password"
+                            placeholder="Password"
+                        />
+                    </div>
+                    <button class="btn btn--register">Register</button>
+                    <h3 class="btn-sign-back"><a href='#'>Go Back</a></h3>
+                </form>
+            </section>
+        </main>
+    </body>
+</html>
