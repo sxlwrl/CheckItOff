@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+*:focus {
+    outline: none;
+}
+
+html {
+    font-size: 100%; /* 16 by default*/
+    /*box-sizing: border-box;*/
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    height: 100vh;
+    color: #333;
+}
+
+main {
+    display: flex;
+}
+
+.section--welcome {
+    /*position: relative;*/
+    width: 65%;
+    height: 100vh;
+    background-color: #62629b;
+}
+
+.section--login,
+.section--register {
+    position: relative;
+    display: flex;
+    width: 35%;
+    height: 100vh;
+    background-color: #f4f4f4;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#label--welcome {
+    text-align: center;
+}
+
+.login__form {
+    display: table;
+    margin: 10%;
+}
+
+.input-field {
+    margin-bottom: 10%;
+    width: 25rem;
+    height: 4vh;
+    background: transparent;
+    border-width: 0 0 0.3vh 0;
+}
+
+#login::placeholder,
+#password::placeholder {
+    font-size: 1.1rem;
+}
+
+input {
+    font-size: 1.1rem;
+}
+
+.btn {
+    width: 25rem;
+    height: 2.5rem;
+    border: none;
+    background: #3fc0c8;
+    /*margin: 2%;*/
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+.logo-main {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30vh;
+    height: 30vh;
+    pointer-events: none;
+}
+
+.hidden {
+    display: none;
+}
