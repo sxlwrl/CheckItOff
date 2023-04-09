@@ -11,7 +11,7 @@
 }
 
 html {
-    font-size: 100%; /* 16 by default*/
+    font-size: 62.5%; /* 16 by default(now 10)*/
     /*box-sizing: border-box;*/
 }
 
@@ -20,6 +20,7 @@ body {
     font-weight: 400;
     height: 100vh;
     color: #333;
+
 }
 
 main {
@@ -28,16 +29,19 @@ main {
 
 .section--welcome {
     /*position: relative;*/
-    width: 65%;
+    width: 75%;
     height: 100vh;
     background-color: #62629b;
+
 }
+
 
 .section--login,
 .section--register {
     position: relative;
     display: flex;
-    width: 35%;
+    margin: 0 auto;
+    max-width: 65rem;
     height: 100vh;
     background-color: #f4f4f4;
     justify-content: center;
@@ -48,15 +52,20 @@ main {
 #label--welcome {
     text-align: center;
 }
+.label,
+.btn-sign-back {
+    font-size: 2.3rem;
+}
 
 .login__form {
     display: table;
     margin: 10%;
+    padding: 2rem 12.5rem;
 }
 
 .input-field {
     margin-bottom: 10%;
-    width: 25rem;
+    width: 30rem;
     height: 4vh;
     background: transparent;
     border-width: 0 0 0.3vh 0;
@@ -64,23 +73,23 @@ main {
 
 #login::placeholder,
 #password::placeholder {
-    font-size: 1.1rem;
+    font-size: 2rem;
 }
 
 input {
-    font-size: 1.1rem;
+    font-size: 2rem;
 }
 
 .btn {
-    width: 25rem;
-    height: 2.5rem;
+    width: 31rem;
+    height: 3.8rem;
     border: none;
     background: #3fc0c8;
+    cursor: pointer;
     /*margin: 2%;*/
-    font-size: 1rem;
-    border-radius: 5px;
+    font-size: 2rem;
+    border-radius: 15px;
 }
-
 .btn:hover {
     opacity: 0.8;
 }
