@@ -1,1 +1,1 @@
-# cursach
+# CheckItOff application
