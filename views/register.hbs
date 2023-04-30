@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="icon" href="../public/img/head_icon.jpg" />
+    <link
+            href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
+            rel="stylesheet"
+    />
+    <title>CheckItOff</title>
+    <script defer src="/src/app.js"></script>
+</head>
+<body>
+<main>
+    <section class="section--welcome">
+        <!--            <h2 class="label" id="label&#45;&#45;welcome">Welcome</h2>-->
+    </section>
+
+    <section class="section--register">
+        <img src="/img/logo_main.png" class="logo-main" />
+        <h2 class="label">CheckItOff: Your personal productivity partner!</h2>
+        <form action="/auth/register" method="post" class="register__form">
+            <input
+                    type="text"
+                    name="username"
+                    class="input-field register-login"
+                    placeholder="Username"
+            />
+            <input
+                    type="email"
+                    name="email"
+                    class="input-field register-email"
+                    placeholder="Email"
+            />
+
+
+            <input
+                    type="password"
+                    name="password"
+                    class="input-field register-password"
+                    placeholder="Password"
+            />
+
+            <input
+                    type="password"
+                    name="confirm_password"
+                    class="input-field register-password"
+                    placeholder="Confirm password"
+            />
+
+            <button class="btn btn--register">Register</button>
+            <h3 class="btn-sign-back"><a href="/">Go back</a></h3>
+        </form>
+    </section>
+</main>
+</body>
+</html>
