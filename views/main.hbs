@@ -1,23 +1,26 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="icon" href="/img/head_icon.jpg" />
     <link
-            href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
-            rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
+      rel="stylesheet"
     />
     <title>CheckItOff</title>
-    <script defer src="app.js"></script>
-</head>
-<body>
-<header>Test header</header>
-<div id="app_holder">
-    <div id="left-menu">Test left menu</div>
-    <!--      <main>Main area</main>-->
-</div>
-</body>
+    <script defer src="/src/app.js"></script>
+  </head>
+  <body>
+    <header>
+        <p>USERNAME: {{user.USERNAME}}</p>
+        <button><a href="/auth/logout">Logout</a></button>
+    </header>
+    <div id="app_holder">
+      <div id="left-menu">Test left menu</div>
+
+      <!--      <main>Main area</main>-->
+    </div>
+  </body>
 </html>
