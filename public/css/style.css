@@ -114,3 +114,14 @@ input {
 .hidden {
     display: none;
 }
+
+.error {
+    color: red;
+    font-size: 200%;
+    font-weight: bold;
+}
+
+.success {
+    color: green;
+    font-weight: bold;
+}
