@@ -5,8 +5,11 @@ const mysql = require('mysql');
 const dotenv = require('dotenv');
 const path = require('path');
 const hbs = require('hbs');
+const cookieParser = require('cookie-parser');
+
 const app = express();
-const http = require('http');
+
+const PORT = process.env.PORT || 80
 
 dotenv.config({
     path: './src/.env',
@@ -24,15 +27,23 @@ database.connect((err) => {
 });
 
 app.use(express.urlencoded({extended: false}));
+app.use(cookieParser());
+
+// handlebars
 
 const location = path.join(__dirname, '../public');
 
 app.use(express.static(location));
 app.set('view engine', 'hbs');
 
+const partialsPath = path.join(__dirname, '../views/partials');
+hbs.registerPartials(partialsPath);
+
 app.use('/', require('../routes/pages'));
 app.use('/auth', require('../routes/auth'));
 
-app.listen(5000, () => {
-    console.log('Server has been started @ Port 5000');
+// app listen
+
+app.listen(PORT, () => {
+    console.log(`Server has been started @ Port ${PORT}`);
 });
