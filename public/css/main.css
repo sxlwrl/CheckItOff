@@ -1,0 +1,25 @@
+:root {
+    --header-height: 3.5rem;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+*:focus {
+    outline: none;
+}
+
+header {
+    background: #62629b;
+    height: 3.5rem;
+}
+
+#left-menu {
+    background: #3fc0c8;
+    width: 305px;
+    height: calc(100vh - var(--header-height));
+}
