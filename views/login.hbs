@@ -1,46 +1,49 @@
-<!DOCTYPE html>
 <html lang="en">
-{{> head }}
-<body>
-<main>
-    <section class="section--welcome">
-        <!--            <h2 class="label" id="label&#45;&#45;welcome">Welcome</h2>-->
-    </section>
-<!--    {{> preloader}}-->
-    <section class="section--login">
-        <img
-                src="/img/logo_main.png"
-                class="logo-main"
-                alt="logo CheckItOff"
-        />
-        <h2 class="label" id="label--1">
-            CheckItOff: Your personal productivity partner!
-        </h2>
-        <form action="/auth/login" method="post" class="login__form">
-            <input
-                    type="text"
-                    class="input-field login-name"
-                    id="login"
-                    name="data"
-                    placeholder="Username or e-mail"
-            />
-            <input
-                    type="password"
-                    class="input-field login-password"
-                    id="password"
-                    maxlength="64"
-                    name="password"
-                    placeholder="Password"
-            />
-            <button class="btn btn--login">Login</button>
-        </form>
-        {{#if msg}}
-            <p class="{{msg_type}}">{{msg}}</p>
-        {{/if}}
-        <h3 class="btn-sign-back"><a href="/register">Sign up</a></h3>
-        <!--                <button class="btn&#45;&#45;login__google">Login with Google</button>-->
+{{> head}}
+  <body>
+    <main>
 
-    </section>
-</main>
-</body>
+      <section class="section--welcome">
+        <!--            <h2 class="label" id="label&#45;&#45;welcome">Welcome</h2>-->
+      </section>
+        {{> preloader}}
+      <div class="welcome">
+        <section class="section--login">
+          <img
+            src="/img/logo_main.png"
+            class="logo-main"
+            alt="logo CheckItOff"
+          />
+          <h2 class="label" id="label--1">
+            CheckItOff: Your personal productivity partner!
+          </h2>
+          <form action="/auth/login" method="post" class="login__form">
+            <input class="input-field unvisible" />
+            <input
+              type="text"
+              class="input-field login-name"
+              id="login"
+              name="data"
+              placeholder="Username or e-mail"
+            />
+            <input
+              type="password"
+              class="input-field login-password"
+              id="password"
+              maxlength="64"
+              name="password"
+              placeholder="Password"
+            />
+
+            <input class="input-field unvisible" />
+            {{#if msg}}
+              <p class="{{msg_type}}">{{msg}}</p>
+            {{/if}}
+            <button class="btn btn--login">Login</button>
+            <h3 class="btn-sign-back"><a href="/register">Sign up</a></h3>
+          </form>
+        </section>
+      </div>
+    </main>
+  </body>
 </html>
