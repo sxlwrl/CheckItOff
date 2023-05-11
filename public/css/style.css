@@ -20,15 +20,20 @@ body {
     font-weight: 400;
     height: 100vh;
     color: #333;
+    background-color: #f4f4f4;
 }
 
 main {
     display: flex;
+    height: 100vh;
 }
 
 .section--welcome {
-    /*position: relative;*/
-    width: 75%;
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    flex-basis: 0;
+    width: 65%;
     height: 100vh;
     background-color: #62629b;
 }
@@ -37,8 +42,7 @@ main {
 .section--register {
     position: relative;
     display: flex;
-    margin: 0 auto;
-    max-width: 85rem;
+    max-width: 76rem;
     height: 100vh;
     background-color: #f4f4f4;
     justify-content: center;
@@ -50,14 +54,22 @@ main {
     text-align: center;
 }
 
+.welcome {
+    position: relative;
+    width: 35%;
+}
+
 .label {
     font-size: 2.3rem;
+    text-align: center;
+    max-width: 100%;
+    margin-top: -20px;
 }
 
 .login__form {
-    display: table;
-    margin: 10%;
-    padding: 2rem 18.5rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
 }
 
 .input-field {
@@ -66,6 +78,9 @@ main {
     height: 4vh;
     background: transparent;
     border-width: 0 0 0.3vh 0;
+}
+.unvisible {
+    visibility: hidden;
 }
 
 #login::placeholder,
@@ -78,14 +93,14 @@ input {
 }
 
 .register__form {
-    display: table;
-    margin: 10%;
-    padding: 2rem 20rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
 }
 
 .btn-sign-back {
     font-size: 2.3rem;
-    padding: 11rem 11rem;
+    padding: 2rem 11rem;
 }
 
 .btn {
@@ -106,11 +121,21 @@ input {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 30vh;
+    max-width: 30vh;
     height: 30vh;
     pointer-events: none;
 }
 
 .hidden {
     display: none;
+}
+.error {
+    color: red;
+    font-size: 200%;
+    font-weight: bold;
+}
+
+.success {
+    color: green;
+    font-weight: bold;
 }
