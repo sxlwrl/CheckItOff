@@ -30,7 +30,7 @@ exports.login = async (req, res) => {
         database.query('SELECT * FROM users WHERE username=? OR email=?', [data, data], async (error, result) => {
             console.log(result);
             if (!result || !(await bcrypt.compare(password, result[0]?.PASS))) {
-                return res.status(401).render('login', {msg: ''});
+                return res.status(401).render('login', {msg: `Email or password isn't correct`});
             }
             else {
                 const id = result[0].ID;
