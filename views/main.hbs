@@ -14,13 +14,60 @@
   </head>
   <body>
     <header>
-        <p>USERNAME: {{user.USERNAME}}</p>
-        <button><a href="/auth/logout">Logout</a></button>
+      <p>USERNAME: {{user.USERNAME}}</p>
+      <button><a href="/auth/logout">Logout</a></button>
     </header>
     <div id="app_holder">
+      <div id="page_background">
+        <div data-testid="top_bar" id="top_bar">
+          <div id="top_bar_inner" role="banner" aria-label="Top Banner:
+          contains Logoutbutton, Settings">
+        
+          </div>
+        </div>
+      </div>
       <div id="left-menu">Test left menu</div>
 
       <!--      <main>Main area</main>-->
+   
+      <div role="listbox" aria-multiselectable="true"
+      data-selection-empty tabindex="-1" class="main-menu">
+      <div class="list_editor view_content" data-empty-veiw="false"data-testid="list-view">
+        <div class="section-list">
+          <section class="section" aria-label="Priority 1">
+        <div class="priority">
+          <header id="p1">
+             <h2>
+          <span>Priority 1</span>
+        </div>
+            </h2>
+         </header>
+         <div class="list_holder">
+          <ul class="items">
+            <li aria-selected="false" class="task_list_item">
+              <div role="button" tabindex="0" data-action-hint="task-root"
+              class="task-list-item-body">
+              <button type="button" class="task_checkbox" role="chekbox"
+              aria-checked="false" aria-label="Mark task as complete"
+              data-action-hint="task-complete">
+              <span class="task_checkbox__circle"></span>
+              <svg width="24" height="24">
+                <path fill="currentColor">
+                </path>
+              </svg>
+              <span class="task_check__border"></span>
+            </button>
+            <div class="task_list_item__content"></div>
+
+              </div>
+            </li>
+          </ul>
+         </div>
+        </div>
+      </div>
+     </div>
     </div>
-  </body>
+  </section>
+ </div>
+ </body>
 </html>
