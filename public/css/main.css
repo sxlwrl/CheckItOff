@@ -1,25 +1,122 @@
 :root {
-    --header-height: 3.5rem;
-
+  --header-height: 3.5rem;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
 }
 
 *:focus {
-    outline: none;
+  outline: none;
 }
 
 header {
-    background: #62629b;
-    height: 3.5rem;
+  background: #62629b;
+  height: 3.5rem;
 }
 
 #left-menu {
-    background: #3fc0c8;
-    width: 305px;
-    height: calc(100vh - var(--header-height));
+  background: #3fc0c8;
+  width: 305px;
+  height: calc(100vh - var(--header-height));
+}
+#app_holder {
+  display: flex;
+  justify-content: center;
+}
+.main-menu {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.view_content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 0;
+  padding-left: 55px;
+  padding-right: 55px;
+  position: relative;
+  z-index: 1;
+}
+.section-list {
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  list-style: none;
+  align-self: center;
+}
+section {
+  display: block;
+}
+.priority {
+  gap: 8px;
+}
+.view_content .list_holder,
+.view_content .section {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+.items {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+ul {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+.task_checkbox {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+task_checkbox__circle {
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  top: 3px;
+  left: 3px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  overflow: hidden;
+  opacity: 0.1;
+}
+svg {
+  width: 24;
+  height: 24;
+}
+svg:not(:root) {
+  overflow-clip-margin: content-box;
+  overflow: hidden;
+}
+.task_checkbox svg {
+  position: absolute;
+  display: inline-block;
+  border: 1px solid transparent;
+  top: -1px;
+  left: -1px;
+  transition: opacity 0.15s cubic-bezier(0.4, 0, 1, 1);
+  pointer-events: none;
+  opacity: 0;
+}
+button {
+  appearance: auto;
+  writing-mode: horizontal-tb !important;
+  text-align: center;
+}
+
+#p1 {
+  margin-top: 3rem;
 }
