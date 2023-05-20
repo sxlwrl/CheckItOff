@@ -10,64 +10,82 @@
       rel="stylesheet"
     />
     <title>CheckItOff</title>
-    <script defer src="/src/app.js"></script>
+      <script>
+          function toggleForm() {
+              const form = document.getElementById('taskForm');
+              const btn = document.getElementById('addTask');
+              form.classList.toggle('hidden');
+              btn.classList.toggle('hidden');
+          }
+
+          function hideForm() {
+              const form = document.getElementById('taskForm');
+              const btn = document.getElementById('addTask');
+              form.classList.add('hidden');
+              btn.classList.toggle('hidden');
+          }
+      </script>
   </head>
   <body>
     <header>
       <p>USERNAME: {{user.USERNAME}}</p>
       <button><a href="/auth/logout">Logout</a></button>
     </header>
-    <div id="app_holder">
-      <div id="page_background">
-        <div data-testid="top_bar" id="top_bar">
-          <div id="top_bar_inner" role="banner" aria-label="Top Banner:
-          contains Logoutbutton, Settings">
-        
-          </div>
-        </div>
-      </div>
-      <div id="left-menu">Test left menu</div>
-
-      <!--      <main>Main area</main>-->
-   
-      <div role="listbox" aria-multiselectable="true"
-      data-selection-empty tabindex="-1" class="main-menu">
-      <div class="list_editor view_content" data-empty-veiw="false"data-testid="list-view">
-        <div class="section-list">
-          <section class="section" aria-label="Priority 1">
-        <div class="priority">
-          <header id="p1">
-             <h2>
-          <span>Priority 1</span>
-        </div>
-            </h2>
-         </header>
-         <div class="list_holder">
-          <ul class="items">
-            <li aria-selected="false" class="task_list_item">
-              <div role="button" tabindex="0" data-action-hint="task-root"
-              class="task-list-item-body">
-              <button type="button" class="task_checkbox" role="chekbox"
-              aria-checked="false" aria-label="Mark task as complete"
-              data-action-hint="task-complete">
-              <span class="task_checkbox__circle"></span>
-              <svg width="24" height="24">
-                <path fill="currentColor">
-                </path>
-              </svg>
-              <span class="task_check__border"></span>
-            </button>
-            <div class="task_list_item__content"></div>
-
-              </div>
+    <h2>Task List</h2>
+    <ul>
+        {{#each tasks}}
+            <li style="display: flex; gap: 15px; margin-bottom: 10px; margin-left: 15px">
+                <p>{{this.task_name}}</p>
+                <p>{{this.task_description}}</p>
+                <p>{{this.task_priority}}</p>
+                <p>{{this.task_status}}</p>
+                <p>{{this.date}}</p>
+                <a href="/main/task/{{this.task_id}}/edit">Edit</a>
+                <form action="/main/task/{{this.task_id}}/delete" method="POST">
+                    <button type="submit" id="deleteBtn" class="hidden">Delete</button>
+                </form>
             </li>
-          </ul>
-         </div>
-        </div>
-      </div>
-     </div>
-    </div>
-  </section>
- </div>
- </body>
+        {{/each}}
+    </ul>
+    {{#if editing}}
+        <h2>Edit Task</h2>
+    {{else}}
+        <h2>Add Task</h2>
+        <button id="addTask" onclick="toggleForm()">Add Task</button>
+    {{/if}}
+
+    {{#if editing}}
+        <form id="taskForm" action="/main/task/{{taskID}}" method="POST" class="">
+    {{else}}
+        <form id="taskForm" action="/main/task" method="POST" class="hidden">
+    {{/if}}
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description">
+        <label for="priority">Priority:</label>
+        <select id="priority" name="priority" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+        <label for="status">Status:</label>
+        <input type="text" id="status" name="status" required>
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+    {{#if editing}}
+            <button type="submit">Edit Task</button>
+    {{else}}
+            <button type="submit">Add Task</button>
+    {{/if}}
+    {{#if editing}}
+            <button><a href="/main">Cancel</a></button>
+        </form>
+    {{else}}
+            <button type="button" onclick="hideForm()">Cancel</button>
+        </form>
+    {{/if}}
+
+  </body>
 </html>
