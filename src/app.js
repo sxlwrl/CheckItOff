@@ -1,11 +1,11 @@
 'use strict';
 
 const express = require('express');
-const mysql = require('mysql');
 const dotenv = require('dotenv');
 const path = require('path');
 const hbs = require('hbs');
 const cookieParser = require('cookie-parser');
+
 
 const app = express();
 
@@ -15,16 +15,8 @@ dotenv.config({
     path: './src/.env',
 });
 
-const database = mysql.createConnection({
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASS,
-    database: process.env.DATABASE,
-});
+const {database} = require('../database/database');
 
-database.connect((err) => {
-    err ? console.log(err) : console.log('MySQL Connection Success');
-});
 
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
@@ -41,6 +33,7 @@ hbs.registerPartials(partialsPath);
 
 app.use('/', require('../routes/pages'));
 app.use('/auth', require('../routes/auth'));
+app.use('/main', require('../routes/task-router'));
 
 // app listen
 
