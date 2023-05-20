@@ -28,6 +28,14 @@
     "nodemon": "^2.0.22"
   },
   "devDependencies": {
-    "jest": "^29.5.0"
+    "jest": "^29.5.0",
+    "jest-simple-dot-reporter": "^1.0.5"
+  },
+  "jest": {
+    "reporters": [
+      "default",
+      "jest-simple-dot-reporter"
+    ]
   }
+
 }
