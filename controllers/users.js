@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const {promisify} = require('util');
 const userModel= require('../models/user-model');
 
-
 const dayToMilliseconds = (day) => (day * 24 * 60 * 60 * 1000);
 
 exports.login = async (req, res) => {
@@ -25,7 +24,6 @@ exports.login = async (req, res) => {
 
         const cookieOptions = {
             expires: new Date(Date.now() + dayToMilliseconds(process.env.JWT_COOKIE_EXPIRES)),
-            // expires: new Date(Date.now() + 10000),
             httpOnly: true,
         }
 
@@ -75,8 +73,6 @@ exports.register = async (req, res) => {
     }
 
 };
-
-
 
 exports.logout = async (req, res) => {
     res.cookie('account', 'logout', {
