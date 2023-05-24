@@ -10,7 +10,7 @@
       rel="stylesheet"
     />
     <title>CheckItOff</title>
-      <script>
+      <script defer>
           function toggleForm() {
               const form = document.getElementById('taskForm');
               const btn = document.getElementById('addTask');
@@ -21,7 +21,7 @@
           function hideForm() {
               const form = document.getElementById('taskForm');
               const btn = document.getElementById('addTask');
-              form.classList.add('hidden');
+              form.classList.toggle('hidden');
               btn.classList.toggle('hidden');
           }
       </script>
@@ -38,11 +38,10 @@
                 <p>{{this.task_name}}</p>
                 <p>{{this.task_description}}</p>
                 <p>{{this.task_priority}}</p>
-                <p>{{this.task_status}}</p>
-                <p>{{this.date}}</p>
+                <p>{{formatDate this.task_date}}</p>
                 <a href="/main/task/{{this.task_id}}/edit">Edit</a>
                 <form action="/main/task/{{this.task_id}}/delete" method="POST">
-                    <button type="submit" id="deleteBtn" class="hidden">Delete</button>
+                    <button type="submit" id="deleteBtn">Delete</button>
                 </form>
             </li>
         {{/each}}
@@ -60,24 +59,22 @@
         <form id="taskForm" action="/main/task" method="POST" class="hidden">
     {{/if}}
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="nameInput" name="name" value="{{task.task_name}}" required>
         <label for="description">Description:</label>
-        <input type="text" id="description" name="description">
+        <input type="text" id="description" name="description" value="{{task.task_description}}">
         <label for="priority">Priority:</label>
-        <select id="priority" name="priority" required>
+        <select id="priority" name="priority" required >
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
         </select>
-        <label for="status">Status:</label>
-        <input type="text" id="status" name="status" required>
         <label for="date">Date:</label>
         <input type="date" id="date" name="date" required>
     {{#if editing}}
             <button type="submit">Edit Task</button>
     {{else}}
-            <button type="submit">Add Task</button>
+            <button class="addTaskSubmit" type="submit" disabled>Add Task</button>
     {{/if}}
     {{#if editing}}
             <button><a href="/main">Cancel</a></button>
