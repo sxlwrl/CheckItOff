@@ -1,12 +1,29 @@
 :root {
   --header-height: 3.5rem;
-
+  --primary1: #a48dff;
+  --primary2: #94befe;
+  --text1: #9a02ff;
+  --gray: #a49ff8;
+  --light: #eee;
+  --btn1: #4879ec;
+  --btn2: #8b5cf6;
+  --text: #252525;
+  --cancel: rgb(144, 21, 21);
 }
 
 * {
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-image: linear-gradient(to right, var(--primary1), var(--primary2));
+  color: #111827;
 }
 
 *:focus {
@@ -14,16 +31,123 @@
 }
 
 header {
-  background: #62629b;
-  height: 3.5rem;
+  display: flex;
+  background: var(--gray);
+  height: 4rem;
+  font-size: 1.8rem;
+  width: 100%;
+  margin: 0 auto;
+  color: #551a8b;
+  font-weight: 500;
+}
+.hello {
+  margin-left: 2rem;
+  margin-top: 1rem;
 }
 
-#left-menu {
-  background: #3fc0c8;
-  width: 305px;
-  height: calc(100vh - var(--header-height));
+h1 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  background-image: linear-gradient(var(--btn1), var(--text1));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.4s;
+  margin-bottom: 1rem;
+  margin-left: 48.3rem;
 }
 
+/* #taskForm {
+  display: flex;
+} */
+
+input,
+button {
+  appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#name,
+#description,
+#status,
+#priority,
+#date {
+  border-radius: 1rem;
+  background-color: var(--light);
+  font-size: 2rem;
+  color: var(--text1);
+}
+
+::placeholder {
+  color: var(--text1);
+  font-size: 1rem;
+}
+
+#addTask {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background-image: linear-gradient(to right, var(--btn1), var(--btn2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  cursor: pointer;
+  transition: 0.4s;
+  margin-right: 16rem;
+  border: 1px solid;
+}
+
+/* #addTask:hover {
+  background: #e7e7e7;
+} */
+
+#Logout {
+  font-size: 1.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 2rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+.cancel-but,
+.cancel-but a {
+  margin: 1rem;
+  color: var(--cancel);
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.editTask,
+.editTask a {
+  display: flex;
+  flex-direction: column;
+}
+
+.view-content {
+  display: flex;
+  flex-direction: column;
+  max-width: 25rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+li {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+  margin-left: 15px;
+  /* justify-content: center; */
+  background-color: var(--light);
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
 .hidden {
   display: none;
 }
