@@ -137,5 +137,6 @@ input {
 
 .success {
     color: green;
+    font-size: 200%;
     font-weight: bold;
 }
