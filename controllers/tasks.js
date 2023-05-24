@@ -13,6 +13,10 @@ exports.createTask = async (req, res) => {
             task_status: 1,
         };
 
+        // if (new Date(taskData.task_date).getDate() < 25) {
+        //     console.log('5');
+        // }
+
         await taskModel.createTask(taskData);
         res.redirect('/main');
     }

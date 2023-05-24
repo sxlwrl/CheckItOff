@@ -58,18 +58,14 @@
     {{else}}
         <form id="taskForm" action="/main/task" method="POST" class="hidden">
     {{/if}}
-        <input type="text" placeholder="Name" id="name" name="name" required>
-        
-        <input type="text" placeholder="What`s your task?" id="description" name="description">
-        
-        <select id="priority" placeholder="Priority" name="priority" required>
+        <input type="text" placeholder="Name" id="name" name="name" value="{{task.task_name}}" required>
+        <input type="text" placeholder="What`s your task?" id="description" value="{{task.task_description}}" name="description">
+        <select id="priority" name="priority" required>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
         </select>
-        
-      
         <input type="date" id="date" name="date" required>
     {{#if editing}}
             <button class="editTask" type="submit">Edit Task</button>
