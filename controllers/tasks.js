@@ -10,7 +10,7 @@ exports.createTask = async (req, res) => {
             task_description: req.body.description,
             task_priority: req.body.priority,
             task_date: req.body.date,
-            task_status: req.body.status,
+            task_status: 1,
         };
 
         await taskModel.createTask(taskData);
@@ -25,7 +25,8 @@ exports.createTask = async (req, res) => {
 exports.editTask = async (req, res) => {
     try {
         const tasks = await taskModel.getTasksByUserId(req.user.ID);
-        res.render(`main`, {tasks, taskID: req.params.id, editing: true});
+        const task = await taskModel.getTaskById(req.params.id);
+        res.render(`main`, {tasks, task, taskID: req.params.id, editing: true});
     }
     catch (error) {
         console.error(error);
@@ -40,7 +41,7 @@ exports.updateTask = async (req, res) => {
             task_name: req.body.name,
             task_description: req.body.description,
             task_priority: req.body.priority,
-            task_status: req.body.status,
+            task_date: req.body.date,
         };
 
         const updated = await taskModel.updateTask(taskId, taskData);
