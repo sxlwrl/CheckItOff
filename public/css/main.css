@@ -8,6 +8,8 @@
   --btn1: #4879ec;
   --btn2: #8b5cf6;
   --text: #252525;
+  --color-disabled: #accaf7;
+  --color-text-disabled: #8699b6;
   --cancel: rgb(144, 21, 21);
 }
 
@@ -34,7 +36,7 @@ header {
   display: flex;
   background: var(--gray);
   height: 4rem;
-  font-size: 1.8rem;
+  font-size: 1rem;
   width: 100%;
   margin: 0 auto;
   color: #551a8b;
@@ -46,23 +48,23 @@ header {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 500;
   background-image: linear-gradient(var(--btn1), var(--text1));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: 0.4s;
   margin-bottom: 1rem;
-  margin-left: 48.3rem;
 }
 
-/* #taskForm {
-  display: flex;
-} */
+#taskForm {
+  border: 0.1rem solid;
+  border-radius: 1rem;
+  border-color: #d1d1d1;
+}
 
 input,
 button {
-  appearance: none;
   border: none;
   outline: none;
   background: none;
@@ -76,8 +78,11 @@ button {
 #date {
   border-radius: 1rem;
   background-color: var(--light);
-  font-size: 2rem;
+  font-size: 1rem;
   color: var(--text1);
+  margin: 0.3rem;
+  margin-left: 1rem;
+  padding-left: 0.3rem;
 }
 
 ::placeholder {
@@ -85,28 +90,27 @@ button {
   font-size: 1rem;
 }
 
-#addTask {
-  font-size: 1.5rem;
+#addTask,
+.editTask {
+  font-size: 1rem;
   font-weight: 700;
   background-image: linear-gradient(to right, var(--btn1), var(--btn2));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   cursor: pointer;
   transition: 0.4s;
-  margin-right: 16rem;
-  border: 1px solid;
+  margin-right: 1rem;
 }
 
-/* #addTask:hover {
-  background: #e7e7e7;
-} */
-
 #Logout {
-  font-size: 1.7rem;
-  font-weight: 700;
   cursor: pointer;
   margin-left: auto;
   margin-right: 2rem;
+  border: 0;
+  padding: 0.25rem;
+  display: grid;
+  place-content: center;
+  background-color: transperent;
 }
 
 a {
@@ -117,37 +121,125 @@ a {
 .cancel-but a {
   margin: 1rem;
   color: var(--cancel);
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  margin-left: auto;
+  margin-top: auto;
 }
 
-.editTask,
-.editTask a {
-  display: flex;
-  flex-direction: column;
+div.btns {
+  margin-left: auto;
+}
+
+#deleteBtn,
+a.editTask {
+  border: 0;
+  padding: 0.25rem;
+  display: grid;
+  place-content: center;
+  background-color: transperent;
+  cursor: pointer;
+}
+
+#deleteBtn svg,
+a.editTask svg {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+#deleteBtn svg path,
+a.editTask svg path,
+#Logout svg path {
+  transition: 0.4s;
+}
+
+#deleteBtn:hover svg path,
+a.editTask:hover svg path,
+#Logout:hover svg path {
+  stroke: var(--btn2);
+}
+
+#deleteBtn:active svg,
+a.editTask:active svg,
+#Logout:active svg {
+  transform: scale(0.8);
 }
 
 .view-content {
   display: flex;
   flex-direction: column;
+  align-items: center;
   max-width: 25rem;
   width: 100%;
   margin: 0 auto;
+  background-color: var(--gray);
+  border: none;
+  border-radius: 1rem;
+  position: relative;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
 }
 
 li {
   display: flex;
   gap: 15px;
-  margin-bottom: 10px;
-  margin-left: 15px;
-  /* justify-content: center; */
   background-color: var(--light);
-  padding: 1rem;
+  padding: 0.5rem;
   border-radius: 1rem;
   margin-bottom: 1rem;
+  margin-top: 1rem;
+  align-items: center;
 }
+li div {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+li.complete {
+  background-color: var(--color-disabled);
+}
+
+div.complete {
+  text-decoration: line-through;
+  color: var(--color-text-disabled);
+}
+
+.taskCheckbox {
+  appearance: none;
+  background-color: transparent;
+  margin: 0;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--btn2);
+  border-radius: 100%;
+  display: grid;
+  place-content: center;
+  transition: 0.1s;
+}
+
+.taskCheckbox::before {
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' id='Outline' viewBox='0 0 24 24' width='12' height='10'%3E%3Cpath d='M22.319,4.431,8.5,18.249a1,1,0,0,1-1.417,0L1.739,12.9a1,1,0,0,0-1.417,0h0a1,1,0,0,0,0,1.417l5.346,5.345a3.008,3.008,0,0,0,4.25,0L23.736,5.847a1,1,0,0,0,0-1.416h0A1,1,0,0,0,22.319,4.431Z'/%3E%3C/svg%3E");
+  transform: scale(0);
+  transition: 0.1s;
+}
+
+.taskCheckbox:checked {
+  background-color: var(--color-text-disabled);
+  border-color: var(--color-text-disabled);
+}
+
+.taskCheckbox:checked::before {
+  transform: scale(1);
+}
+
 .hidden {
   display: none;
 }
