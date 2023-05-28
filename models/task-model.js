@@ -7,18 +7,18 @@ class TaskModel {
         this.database = database;
     }
 
-    getTasksByUserId(user_id) {
-        return new Promise((resolve, reject) => {
-            this.database.query('SELECT * FROM tasks WHERE user_id = ?', [user_id], (error, results) => {
-                error ? reject(error) : resolve(results);
-            });
-        });
-    };
-
     createTask(taskData) {
         return new Promise((resolve, reject) => {
             this.database.query('INSERT INTO tasks SET ?', taskData, (error, result) => {
                 error ? reject(error) : resolve(result.insertId);
+            });
+        });
+    };
+
+    getTasksByUserId(user_id) {
+        return new Promise((resolve, reject) => {
+            this.database.query('SELECT * FROM tasks WHERE user_id = ?', [user_id], (error, results) => {
+                error ? reject(error) : resolve(results);
             });
         });
     };
