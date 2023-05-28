@@ -1,12 +1,6 @@
 @media (max-width: 56em) {
   .section--login,
   .section--register {
-    width: 40em
-  }
-}
-/*@media (max-width: 44em) {
-  .section--login,
-  .section--register {
-    max-width: 60rem;
+    width: 40em;
   }
 }
