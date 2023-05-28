@@ -1,10 +1,16 @@
 <html lang="en">
 {{> head}}
+<script>
+    if (window.performance && window.performance.getEntriesByType('navigation')[0].type === 'reload') {
+        window.location.href = '/';
+    }
+</script>
   <body>
     <main>
 
       <section class="section--welcome">
-        <!--            <h2 class="label" id="label&#45;&#45;welcome">Welcome</h2>-->
+          <img src="/img/welcome_login.png" class="image-welcome">
+          <h1 class='copyright'>©Vadym & Alina</h1>
       </section>
         {{> preloader}}
 
@@ -41,8 +47,8 @@
               <p class="{{msg_type}}">{{msg}}</p>
             {{/if}}
             <button class="btn btn--login">Login</button>
-            <h3 class="btn-sign-back"><a href="/register">Sign up</a></h3>
           </form>
+            <h3 class="btn-sign-back">Still not with us? <a href="/register">Sign up</a></h3>
         </section>
       </div>
     </main>
