@@ -30,7 +30,8 @@
   },
   "devDependencies": {
     "jest": "^29.5.0",
-    "jest-simple-dot-reporter": "^1.0.5"
+    "jest-simple-dot-reporter": "^1.0.5",
+    "prettier": "^2.8.8"
   },
   "jest": {
     "reporters": [
