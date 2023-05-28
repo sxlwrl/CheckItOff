@@ -136,13 +136,13 @@ input {
   font-size: 200%;
   font-weight: bold;
   position: absolute;
-  margin-top: 27rem;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .success {
   color: green;
   font-size: 200%;
   font-weight: bold;
-  position: absolute;
-  margin-top: 20rem;
 }
