@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
 
+:root {
+  --autofill: #f3f3f3
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -12,7 +16,6 @@
 
 html {
   font-size: 62.5%; /* 16 by default(now 10)*/
-  /*box-sizing: border-box;*/
 }
 
 body {
@@ -31,6 +34,8 @@ main {
 .section--welcome {
   position: relative;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-grow: 1;
   flex-basis: 0;
   width: 65%;
@@ -84,9 +89,13 @@ main {
   visibility: hidden;
 }
 
-#login::placeholder,
-#password::placeholder {
+input::placeholder {
   font-size: 2rem;
+  font-family: "Nunito", sans-serif;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--autofill) inset;
 }
 
 input {
@@ -102,7 +111,7 @@ input {
 
 .btn-sign-back {
   font-size: 2.3rem;
-  padding: 2rem 11rem;
+  padding: 3rem 11rem;
 }
 
 .btn {
@@ -114,6 +123,7 @@ input {
   font-size: 2rem;
   border-radius: 15px;
   margin-top: 2rem;
+  font-family: "Nunito", sans-serif;
 }
 .btn:hover {
   opacity: 0.8;
@@ -126,17 +136,42 @@ input {
   max-width: 30vh;
   height: 30vh;
   pointer-events: none;
+  user-select: none;
+}
+
+.image-welcome {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 50%;
+  height: 50%;
+  pointer-events: none;
+  user-select: none;
+}
+
+a {
+  text-decoration: none;
 }
 
 .hidden {
   display: none;
 }
+
+.copyright {
+  position: absolute;
+  bottom: 2rem;
+  left: 5rem;
+  opacity: 0.5;
+  user-select: none;
+}
+
 .error {
   color: red;
   font-size: 200%;
   font-weight: bold;
   position: absolute;
-  top: 75%;
+  top: 74%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -146,3 +181,4 @@ input {
   font-size: 200%;
   font-weight: bold;
 }
+
