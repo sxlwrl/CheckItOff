@@ -2,16 +2,6 @@
 
 const taskModel = require('../models/task-model');
 
-function getCurrentDate() {
-    const currentDate = new Date();
-
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-    const day = String(currentDate.getDate()).padStart(2, '0');
-
-    return `${year}-${month}-${day}`;
-}
-
 class Task {
     async createTask(req, res) {
         try {
@@ -23,11 +13,10 @@ class Task {
                 task_date: req.body.date,
                 task_status: 1,
             };
-
+            console.log(req.body);
             await taskModel.createTask(taskData);
             res.redirect('/main');
-        }
-        catch (error) {
+        } catch (error) {
             console.error(error);
             res.status(500).send('Error');
         }
@@ -37,10 +26,16 @@ class Task {
         try {
             const tasks = await taskModel.getTasksByUserId(req.user.ID);
             const task = await taskModel.getTaskById(req.params.id);
-            const date = getCurrentDate();
-            res.render(`main`, {tasks, task, taskID: req.params.id, editing: true, date});
-        }
-        catch (error) {
+            const user = req.user;
+            res.render(`main`, {
+                tasks,
+                task,
+                taskID: req.params.id,
+                editing: true,
+                user,
+            });
+            const x = 'x';
+        } catch (error) {
             console.error(error);
             res.status(500).send('Error');
         }
@@ -57,7 +52,11 @@ class Task {
             };
 
             const updated = await taskModel.updateTask(taskId, taskData);
-            updated ? res.redirect('/main') : res.status(404).send('Task not found');
+            updated
+                ? res.redirect('/main')
+                : res.status(404).send('Task not found');
+
+
         } catch (error) {
             console.error(error);
             res.status(500).send('Internal Server Error');
@@ -67,7 +66,24 @@ class Task {
     async deleteTask(req, res) {
         try {
             const deleted = await taskModel.deleteTask(req.params.id);
-            deleted ? res.redirect('/main') : res.status(404).send('Task not found');
+            deleted
+                ? res.redirect('/main')
+                : res.status(404).send('Task not found');
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Internal Server Error');
+        }
+    };
+
+    async updateTaskStatus(req, res) {
+        try {
+            const taskId = req.params.id;
+            const taskStatus = +req.body.status
+            const updated = await taskModel.updateTaskStatus(taskId, taskStatus);
+
+            updated
+                ? res.sendStatus(200)
+                : res.status(404).send('Task not found');
         } catch (error) {
             console.error(error);
             res.status(500).send('Internal Server Error');
@@ -76,4 +92,3 @@ class Task {
 }
 
 module.exports = new Task();
-
