@@ -2,9 +2,15 @@
 <html lang="en">
 {{> head }}
 <body>
+<script>
+    if (window.performance && window.performance.getEntriesByType('navigation')[0].type === 'reload') {
+        window.location.href = '/register';
+    }
+</script>
 <main>
     <section class="section--welcome">
-        <!--            <h2 class="label" id="label&#45;&#45;welcome">Welcome</h2>-->
+        <img src="/img/welcome_register.png" class="image-welcome">
+        <h1 class='copyright'>©Vadym & Alina</h1>
     </section>
 
     <div class="welcome">
@@ -44,8 +50,8 @@
                 <p class="{{msg_type}}">{{msg}}</p>
             {{/if}}
             <button class="btn btn--register">Register</button>
-            <h3 class="btn-sign-back"><a href="/">Go back</a></h3>
         </form>
+        <h3 class="btn-sign-back"><a href="/">Go back</a></h3>
     </section>
     </div>
 </main>
