@@ -1,14 +1,15 @@
 :root {
   --header-height: 3.5rem;
-  --primary1: #a48dff;
-  --primary2: #94befe;
-  --text1: #9a02ff;
-  --gray: #a49ff8;
+  --primary1: #c8b6ff;
+  --primary2: #b8c0ff;
+  --text1: #5e548e;
+  --gray: #bbd0ff;
+  --tasks: #bbd0ff80;
   --light: #eee;
   --btn1: #4879ec;
   --btn2: #8b5cf6;
   --text: #252525;
-  --color-disabled: #accaf7;
+  --color-disabled: #a2afc0fa;
   --color-text-disabled: #8699b6;
   --cancel: rgb(144, 21, 21);
 }
@@ -36,10 +37,10 @@ header {
   display: flex;
   background: var(--gray);
   height: 4rem;
-  font-size: 1rem;
+  font-size: 1.5rem;
   width: 100%;
   margin: 0 auto;
-  color: #551a8b;
+  color: var(--text1);
   font-weight: 500;
 }
 .hello {
@@ -50,17 +51,17 @@ header {
 h1 {
   font-size: 2rem;
   font-weight: 500;
-  background-image: linear-gradient(var(--btn1), var(--text1));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: 0.4s;
-  margin-bottom: 1rem;
+  color:var(--text1);
+  margin: 1.2rem;
 }
 
 #taskForm {
   border: 0.1rem solid;
   border-radius: 1rem;
-  border-color: #d1d1d1;
+  border-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
 }
 
 input,
@@ -76,13 +77,30 @@ button {
 #status,
 #priority,
 #date {
-  border-radius: 1rem;
+  border-radius: 0.7rem;
   background-color: var(--light);
   font-size: 1rem;
   color: var(--text1);
-  margin: 0.3rem;
-  margin-left: 1rem;
-  padding-left: 0.3rem;
+  margin: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  width:fit-content;
+}
+
+ .taskName {
+  font-weight: 700;
+}
+
+.taskDate {
+  font-style: italic;
+
+}
+
+#description {
+  display: block;
+  border-radius: 0.7rem 0.7rem 0 0.7rem;
+  resize: vertical;
+  width: calc(100% - 0.8rem);
+  min-height: 2rem;
 }
 
 ::placeholder {
@@ -98,12 +116,7 @@ button {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   cursor: pointer;
-  transition: 0.4s;
-  margin-right: 1rem;
-}
-
-#addTask {
-  margin-bottom: 1rem;
+  margin: 1rem;
 }
 
 #Logout {
@@ -114,7 +127,6 @@ button {
   padding: 0.25rem;
   display: grid;
   place-content: center;
-  background-color: transperent;
 }
 
 a {
@@ -122,18 +134,23 @@ a {
 }
 
 .cancel-but,
-.cancel-but a {
-  margin: 1rem;
-  color: var(--cancel);
-  font-size: 1rem;
-  font-weight: 700;
+.cancel-but a,
+.addTask-edit {
+  border: 0;
+  padding: 0.25rem;
+  display: flex;
+  place-content: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  margin-left: auto;
-  margin-top: auto;
+}
+
+div.edit-btns {
+  display:flex;
+  align-items: center;
 }
 
 div.btns {
+  display: flex;
+  align-items: center;
   margin-left: auto;
 }
 
@@ -141,11 +158,12 @@ div.btns {
 a.editTask {
   border: 0;
   padding: 0.25rem;
-  display: grid;
+  display: flex;
   place-content: center;
-  background-color: transperent;
   cursor: pointer;
+  flex-direction: column;
 }
+
 
 #deleteBtn svg,
 a.editTask svg {
@@ -155,19 +173,25 @@ a.editTask svg {
 
 #deleteBtn svg path,
 a.editTask svg path,
-#Logout svg path {
+#Logout svg path,
+.addTask-edit svg path,
+.cancel-but svg path {
   transition: 0.4s;
 }
 
 #deleteBtn:hover svg path,
 a.editTask:hover svg path,
-#Logout:hover svg path {
+#Logout:hover svg path,
+.addTask-edit:hover svg path,
+.cancel-but:hover svg path {
   stroke: var(--btn2);
 }
 
 #deleteBtn:active svg,
 a.editTask:active svg,
-#Logout:active svg {
+#Logout:active svg,
+.cancel-but:active svg,
+.addTask-edit:active svg {
   transform: scale(0.8);
 }
 
@@ -175,10 +199,10 @@ a.editTask:active svg,
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 25rem;
+  max-width: 45rem;
   width: 100%;
   margin: 0 auto;
-  background-color: var(--gray);
+  background-color: var(--tasks);
   border: none;
   border-radius: 1rem;
   position: relative;
@@ -198,20 +222,27 @@ li {
   background-color: var(--light);
   padding: 0.5rem;
   border-radius: 1rem;
-  margin-bottom: 1rem;
   margin-top: 1rem;
   align-items: center;
 }
-li div {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+
+li:hover .btns {
+display: flex;
 }
 
-.complete {
+li div.tasks {
+ margin-left: 2rem;
+}
+
+li.complete {
   text-decoration: line-through;
-  background-color: var(--color-disabled);
+  background-image: linear-gradient(to right, var(--primary1), var(--primary2));
   color: var(--color-text-disabled);
+}
+
+li.complete .btns {
+  visibility: hidden;
+  opacity: 0;
 }
 
 .taskCheckbox {
@@ -220,11 +251,31 @@ li div {
   margin: 0;
   width: 1rem;
   height: 1rem;
-  border: 2px solid var(--btn2);
+  border: 2px solid var(--text1);
   border-radius: 100%;
-  display: grid;
-  place-content: center;
+  display:grid;
   transition: 0.1s;
+}
+
+.priority1 {
+  border-color: red;
+}
+
+.priority2 {
+  border-color: orange;
+}
+
+.priority3 {
+  border-color: rgb(239, 239, 21);
+}
+
+.priority4 {
+  border-color: green;
+}
+
+.divInLi {
+  display: flex;
+  align-items: center;
 }
 
 .taskCheckbox::before {
@@ -243,5 +294,13 @@ li div {
 }
 
 .hidden {
+  display: none!important;
+}
+
+.unvisible {
+  visibility: hidden;
+}
+
+#taskForm.hidden {
   display: none;
 }
