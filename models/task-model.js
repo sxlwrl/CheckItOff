@@ -1,6 +1,6 @@
 'use strict';
 
-const {database} = require('../database/database');
+const { database } = require('../database/database');
 
 class TaskModel {
     constructor(database) {
@@ -9,41 +9,73 @@ class TaskModel {
 
     createTask(taskData) {
         return new Promise((resolve, reject) => {
-            this.database.query('INSERT INTO tasks SET ?', taskData, (error, result) => {
-                error ? reject(error) : resolve(result.insertId);
-            });
+            this.database.query(
+                'INSERT INTO tasks SET ?',
+                taskData,
+                (error, result) => {
+                    error ? reject(error) : resolve(result.insertId);
+                }
+            );
         });
-    };
+    }
 
     getTasksByUserId(user_id) {
         return new Promise((resolve, reject) => {
-            this.database.query('SELECT * FROM tasks WHERE user_id = ?', [user_id], (error, results) => {
-                error ? reject(error) : resolve(results);
-            });
+            this.database.query(
+                'SELECT * FROM tasks WHERE user_id = ?',
+                [user_id],
+                (error, results) => {
+                    error ? reject(error) : resolve(results);
+                }
+            );
         });
-    };
+    }
 
     getTaskById(taskId) {
         return new Promise((resolve, reject) => {
-            this.database.query('SELECT * FROM tasks WHERE task_id = ?', [taskId], (error, results) => {
-                error ? reject(error) : resolve(results[0]);
-            });
+            this.database.query(
+                'SELECT * FROM tasks WHERE task_id = ?',
+                [taskId],
+                (error, results) => {
+                    error ? reject(error) : resolve(results[0]);
+                }
+            );
         });
-    };
+    }
 
     updateTask(taskId, taskData) {
         return new Promise((resolve, reject) => {
-            this.database.query('UPDATE tasks SET ? WHERE task_id = ?', [taskData, taskId], (error, result) => {
-                error ? reject(error) : resolve(result.affectedRows > 0);
-            });
+            this.database.query(
+                'UPDATE tasks SET ? WHERE task_id = ?',
+                [taskData, taskId],
+                (error, result) => {
+                    error ? reject(error) : resolve(result.affectedRows > 0);
+                }
+            );
         });
-    };
+    }
 
     deleteTask(taskId) {
         return new Promise((resolve, reject) => {
-            this.database.query('DELETE FROM tasks WHERE task_id = ?', [taskId], (error, result) => {
-                error ? reject(error) : resolve(result.affectedRows > 0);
-            });
+            this.database.query(
+                'DELETE FROM tasks WHERE task_id = ?',
+                [taskId],
+                (error, result) => {
+                    error ? reject(error) : resolve(result.affectedRows > 0);
+                }
+            );
+        });
+    }
+
+    updateTaskStatus(taskId, taskStatus) {
+        return new Promise((resolve, reject) => {
+            this.database.query(
+                'UPDATE tasks SET task_status = ? WHERE task_id = ?',
+                [taskStatus, taskId],
+                (error, result) => {
+                    error ? reject(error) : resolve(result.affectedRows > 0);
+                }
+            );
         });
     };
 }
