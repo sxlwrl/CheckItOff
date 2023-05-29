@@ -10,13 +10,14 @@
         rel="stylesheet"
     />
     <title>CheckItOff</title>
+    
     <script>
         function toggleForm() {
-            const form = document.getElementById('taskForm');
-            const btn = document.getElementById('addTask');
-            form.classList.toggle('hidden');
-            btn.classList.toggle('hidden');
-        }
+    const form = document.getElementById('taskForm');
+    form.classList.toggle('hidden');
+    const btn = document.getElementById('addTask');
+    btn.classList.toggle('unvisible');
+}
 
         window.addEventListener('DOMContentLoaded', () => {
             const dateInput = document.getElementById('date');
@@ -51,24 +52,6 @@
                 });
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            const taskItems = document.querySelectorAll('li');
-            taskItems.forEach((item) => {
-                item.addEventListener('mouseover', () => {
-                    const btns = item.querySelector('.btns');
-                    if (!item.classList.contains('complete')) {
-                        btns.classList.remove('hidden');
-                    }
-
-                });
-                item.addEventListener('mouseout', () => {
-                    const btns = item.querySelector('.btns');
-                    btns.classList.add('hidden');
-                });
-
-            })
-        });
-
     </script>
 </head>
 <body>
@@ -92,21 +75,22 @@
     <div class="view-content">
         <ul>
             {{#each tasks}}
-                <li {{#unless this.task_status}} class='complete' {{/unless}} id='task{{this.task_id}}' onmouseover='showButtons({{this}})'>
+                <li {{#unless this.task_status}} class='complete' {{/unless}} id='task{{this.task_id}}'>
                     <div class="divInLi">
                         <input
                             type="checkbox"
-                            class="taskCheckbox"
+                            class="taskCheckbox priority{{this.task_priority}}" 
                             id="taskCheckbox{{this.task_id}}"
                             onchange="updateTaskStatus('{{this.task_id}}', !this.checked)"
                             {{#unless this.task_status}}checked{{/unless}}
                         />
-                        <p>{{this.task_name}}</p>
-                        <p>{{this.task_description}}</p>
-                        <p>{{this.task_priority}}</p>
-                        <p>{{formatDate this.task_date}}</p>
+                        <div class="tasks">
+                        <p class="taskName">{{this.task_name}}</p>
+                        <p class="taskDescription">{{this.task_description}}</p>
+                        <p class="taskDate">{{formatDate this.task_date}}</p>
+                        </div>
                     </div>
-                    <div class="btns hidden">
+                    <div class="btns">
                         <a class="editTask" href="/main/task/{{this.task_id}}/edit">
                             <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="10"
                                  height="10">
@@ -127,36 +111,65 @@
                 </li>
             {{/each}}
         </ul>
-
-        <button id="addTask" onclick="toggleForm()">Add Task</button>
+      
+        <button {{#if editing}} class="unvisible" {{/if}} id="addTask" onclick="toggleForm()">Add Task</button>
 
         {{#if editing}}
+
         <form id="taskForm" action="/main/task/{{taskID}}" method="POST" class="">
         {{else}}
         <form id="taskForm" action="/main/task" method="POST" class="hidden">
         {{/if}}
         <input type="text" placeholder="Name" id="name" name="name" value="{{task.task_name}}" required>
-        <input type="text" placeholder="What`s your task?" id="description" value="{{task.task_description}}"
-               name="description">
-        <select id="priority" name="priority" required>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
+        <textarea type="text" placeholder="Description" id="description" value="{{task.task_description}}"
+               name="description">{{task.task_description}}</textarea>
+        
+        <select id="priority" name="priority"  required>
+            {{#if editing}} 
+                <option value="1" {{#ifEquals task.task_priority 1 }}selected{{/ifEquals}}>1</option>
+                <option value="2" {{#ifEquals task.task_priority 2 }}selected{{/ifEquals}}>2</option>
+                <option value="3" {{#ifEquals task.task_priority 3 }}selected{{/ifEquals}}>3</option>
+                <option value="4" {{#ifEquals task.task_priority 4 }}selected{{/ifEquals}}>4</option>    
+            {{else}}
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            {{/if}}
         </select>
-        <input type="date" id="date" name="date" required>
+        <input type="date" id="date" name="date" value="{{formatDate task.task_date}}" required>
+        
+       <div class="edit-btns">
         {{#if editing}}
-            <button class="editTask" type="submit">Edit Task</button>
-        {{else}}
-            <button id="addTask" type="submit">Add Task</button>
-        {{/if}}
+
+    <button class="editTask" type="submit">Edit Task</button>
+{{else}}
+    <button class="addTask-edit" type="submit" >
+        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 80 80" width="20px" height="20px">
+        <path fill="#a5ace0" d="M40,77.5C19.322,77.5,2.5,60.678,2.5,40S19.322,2.5,40,2.5S77.5,19.322,77.5,40S60.678,77.5,40,77.5 z"/>
+        <path fill="#5e548e" d="M40,3c20.402,0,37,16.598,37,37S60.402,77,40,77S3,60.402,3,40S19.598,3,40,3 M40,2 C19.013,2,2,19.013,2,40s17.013,38,38,38s38-17.013,38-38S60.987,2,40,2L40,2z"/>
+        <path fill="#5e548e" d="M20 36H60V44H20z"/><path fill="#5e548e" d="M20 36H60V44H20z" transform="rotate(90 40 40)"/>
+        </svg>
+    </button>
+{{/if}}
         {{#if editing}}
-            <button class="cancel-but"><a href="/main">Cancel</a></button>
-        </form>
-        {{else}}
-            <button type="button" class="cancel-but toggle" onclick="toggleForm()">Cancel</button>
-        </form>
-        {{/if}}
+    <button type="button" class="cancel-but">
+        <a href="/main">
+    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 80 80" width="15px" height="15px">
+    <path fill="#f78f8f" d="M40 49.007L15.714 73.293 6.707 64.286 30.993 40 6.707 15.714 15.714 6.707 40 30.993 64.286 6.707 73.293 15.714 49.007 40 73.293 64.286 64.286 73.293z"/>
+    <path fill="#c74343" d="M15.714,7.414l23.578,23.578L40,31.7l0.707-0.707L64.286,7.414l8.3,8.3L49.007,39.293L48.3,40 l0.707,0.707l23.578,23.579l-8.3,8.3L40.707,49.007L40,48.3l-0.707,0.707L15.714,72.586l-8.3-8.3l23.579-23.579L31.7,40 l-0.707-0.707L7.414,15.714L15.714,7.414 M64.286,6L40,30.286L15.714,6L6,15.714L30.286,40L6,64.286L15.714,74L40,49.714L64.286,74 L74,64.286L49.714,40L74,15.714L64.286,6L64.286,6z"/>
+    </svg>
+    </a>
+    </button>
+{{else}}
+    <button type="button" class="cancel-but toggle" onclick="toggleForm()">
+    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 80 80" width="15px" height="15px">
+    <path fill="#f78f8f" d="M40 49.007L15.714 73.293 6.707 64.286 30.993 40 6.707 15.714 15.714 6.707 40 30.993 64.286 6.707 73.293 15.714 49.007 40 73.293 64.286 64.286 73.293z"/>
+    <path fill="#c74343" d="M15.714,7.414l23.578,23.578L40,31.7l0.707-0.707L64.286,7.414l8.3,8.3L49.007,39.293L48.3,40 l0.707,0.707l23.578,23.579l-8.3,8.3L40.707,49.007L40,48.3l-0.707,0.707L15.714,72.586l-8.3-8.3l23.579-23.579L31.7,40 l-0.707-0.707L7.414,15.714L15.714,7.414 M64.286,6L40,30.286L15.714,6L6,15.714L30.286,40L6,64.286L15.714,74L40,49.714L64.286,74 L74,64.286L49.714,40L74,15.714L64.286,6L64.286,6z"/>
+    </svg>
+    </button>
+{{/if}}
+    </div>
     </div>
     </div>
 </section>
