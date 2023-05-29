@@ -10,5 +10,6 @@ router.post('/task', authMiddleware, taskController.createTask);
 router.get('/task/:id/edit', authMiddleware, taskController.editTask);
 router.post('/task/:id', taskController.updateTask);
 router.post('/task/:id/delete', taskController.deleteTask);
+router.post('/task/:id/status', authMiddleware, taskController.updateTaskStatus);
 
 module.exports = router;
