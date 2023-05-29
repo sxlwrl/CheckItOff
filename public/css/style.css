@@ -180,5 +180,9 @@ a {
   color: green;
   font-size: 200%;
   font-weight: bold;
+  position: absolute;
+  top: 74%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
