@@ -29,9 +29,13 @@ const partialsPath = path.join(__dirname, '../views/partials');
 hbs.registerPartials(partialsPath);
 
 hbs.registerHelper('formatDate', function(dateString) {
-    const options = { weekday: 'short', month: 'short', day: '2-digit' };
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', options);
+    console.log(dateString, date)
+    return `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}`;
+});
+
+hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
+    return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 });
 
 app.use('/', require('../routes/pages'));
