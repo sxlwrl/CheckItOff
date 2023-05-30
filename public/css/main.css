@@ -304,3 +304,14 @@ li.complete .btns {
 #taskForm.hidden {
   display: none;
 }
+
+.error {
+  color: red;
+  font-size: 100%;
+  font-weight: bold;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 2px;
+}
