@@ -30,12 +30,11 @@ hbs.registerPartials(partialsPath);
 
 hbs.registerHelper('formatDate', function(dateString) {
     const date = new Date(dateString);
-    console.log(dateString, date)
     return `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}`;
 });
 
 hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
-    return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+    return (+arg1 === +arg2) ? options.fn(this) : options.inverse(this);
 });
 
 app.use('/', require('../routes/pages'));

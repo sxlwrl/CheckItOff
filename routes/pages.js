@@ -4,12 +4,13 @@ const express = require('express');
 const router = express.Router();
 const taskModel = require("../models/task-model");
 const {authMiddleware} = require('../middlewares/authMiddlewares');
+const { preventRedirectMiddleware } = require('../middlewares/preventRedirectMiddleware');
 
-router.get(['/', '/login'], (req, res) => {
+router.get(['/', '/login'], preventRedirectMiddleware, (req, res) => {
     req.user ? res.redirect('/main') : res.render('login');
 });
 
-router.get('/register', (req, res) => {
+router.get('/register', preventRedirectMiddleware, (req, res) => {
     req.user ? res.redirect('/main') : res.render('register');
 });
 
