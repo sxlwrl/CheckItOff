@@ -88,17 +88,6 @@ describe('register', () => {
         expect(res.render).toHaveBeenCalledWith('register', { msg: `User registration is successful`, msg_type: 'success' });
     });
 
-    test(`Should delete cookie and redirect to '/`, async () => {
-        const req = expect.any(Object);
-        const res = mockResponse();
-
-        await users.logout(req, res);
-
-        expect(res.cookie).toHaveBeenCalledWith('account', 'logout', {
-            expires: expect.any(Date),
-            httpOnly: true,
-        });
-        expect(res.status).toHaveBeenCalledWith(200);
-        expect(res.redirect).toHaveBeenCalledWith('/');
-    });
 });
+
+
