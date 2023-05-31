@@ -90,4 +90,18 @@ describe('register', () => {
 
 });
 
+describe('logout', () => {
+    test(`Should delete cookie and redirect to '/`, async () => {
+        const req = expect.any(Object);
+        const res = mockResponse();
 
+        await users.logout(req, res);
+
+        expect(res.cookie).toHaveBeenCalledWith('account', 'logout', {
+            expires: expect.any(Date),
+            httpOnly: true,
+        });
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.redirect).toHaveBeenCalledWith('/');
+    });
+});
