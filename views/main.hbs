@@ -1,26 +1,189 @@
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="icon" href="/img/head_icon.jpg" />
     <link
-      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
-      rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
+        rel="stylesheet"
     />
     <title>CheckItOff</title>
-    <script defer src="/src/app.js"></script>
-  </head>
-  <body>
-    <header>
-        <p>USERNAME: {{user.USERNAME}}</p>
-        <button><a href="/auth/logout">Logout</a></button>
-    </header>
-    <div id="app_holder">
-      <div id="left-menu">Test left menu</div>
 
-      <!--      <main>Main area</main>-->
+    <script>
+        if (window.performance && window.performance.getEntriesByType('navigation')[0].type === 'reload') {
+            window.location.href = '/main';
+        }
+
+        function toggleForm() {
+            const form = document.getElementById('taskForm');
+            form.classList.toggle('hidden');
+            const btn = document.getElementById('addTask');
+            btn.classList.toggle('unvisible');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const dateInput = document.getElementById('date');
+            dateInput.min = new Date().toISOString().split('T')[0];
+        });
+
+        function showButtons(taskItem) {
+            const btns = taskItem.querySelector('.btns');
+            btns.style.display = 'flex';
+        }
+
+        function updateTaskStatus(taskId, status) {
+            fetch(`/main/task/${taskId}/status`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    status: status
+                })
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        const taskItem = document.getElementById(`task${taskId}`);
+                        taskItem.classList.toggle('complete');
+                    } else {
+                        console.error('Failed to update task status');
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+
+    </script>
+</head>
+<body>
+<header>
+    <p class="hello"> Welcome back, {{user.USERNAME}}</p>
+    <button id="Logout"><a href="/auth/logout">
+        <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20">
+            <path
+                d="M22.829,9.172,18.95,5.293a1,1,0,0,0-1.414,1.414l3.879,3.879a2.057,2.057,0,0,1,.3.39c-.015,0-.027-.008-.042-.008h0L5.989,11a1,1,0,0,0,0,2h0l15.678-.032c.028,0,.051-.014.078-.016a2,2,0,0,1-.334.462l-3.879,3.879a1,1,0,1,0,1.414,1.414l3.879-3.879a4,4,0,0,0,0-5.656Z" />
+            <path
+                d="M7,22H5a3,3,0,0,1-3-3V5A3,3,0,0,1,5,2H7A1,1,0,0,0,7,0H5A5.006,5.006,0,0,0,0,5V19a5.006,5.006,0,0,0,5,5H7a1,1,0,0,0,0-2Z" />
+        </svg>
+    </a>
+    </button>
+</header>
+
+<section class="Task-list">
+
+    <h1>Task List</h1>
+
+    <div class="view-content">
+        <ul>
+            {{#each tasks}}
+                <li {{#unless this.task_status}} class='complete' {{/unless}} id='task{{this.task_id}}'>
+                    <div class="divInLi">
+                        <input
+                            type="checkbox"
+                            class="taskCheckbox priority{{this.task_priority}}"
+                            id="taskCheckbox{{this.task_id}}"
+                            onchange="updateTaskStatus('{{this.task_id}}', !this.checked)"
+                            {{#unless this.task_status}}checked{{/unless}}
+                        />
+                        <div class="tasks">
+                            <p class="taskName">{{this.task_name}}</p>
+                            <p class="taskDescription">{{this.task_description}}</p>
+                            <p class="taskDate">{{formatDate this.task_date}}</p>
+                        </div>
+                    </div>
+                    <div class="btns">
+                        <a class="editTask" href="/main/task/{{this.task_id}}/edit">
+                            <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="10"
+                                 height="10">
+                                <path
+                                    d="M22.853,1.148a3.626,3.626,0,0,0-5.124,0L1.465,17.412A4.968,4.968,0,0,0,0,20.947V23a1,1,0,0,0,1,1H3.053a4.966,4.966,0,0,0,3.535-1.464L22.853,6.271A3.626,3.626,0,0,0,22.853,1.148ZM5.174,21.122A3.022,3.022,0,0,1,3.053,22H2V20.947a2.98,2.98,0,0,1,.879-2.121L15.222,6.483l2.3,2.3ZM21.438,4.857,18.932,7.364l-2.3-2.295,2.507-2.507a1.623,1.623,0,1,1,2.295,2.3Z" />
+                            </svg>
+                        </a>
+                        <form action="/main/task/{{this.task_id}}/delete" method="POST">
+                            <button type="submit" id="deleteBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="10"
+                                     height="10">
+                                    <path
+                                        d="M23.707.293h0a1,1,0,0,0-1.414,0L12,10.586,1.707.293a1,1,0,0,0-1.414,0h0a1,1,0,0,0,0,1.414L10.586,12,.293,22.293a1,1,0,0,0,0,1.414h0a1,1,0,0,0,1.414,0L12,13.414,22.293,23.707a1,1,0,0,0,1.414,0h0a1,1,0,0,0,0-1.414L13.414,12,23.707,1.707A1,1,0,0,0,23.707.293Z" />
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
+
+        {{#if error}}<p class='error'>{{error}}</p>{{/if}}
+
+        <button {{#if editing}} class="unvisible" {{/if}} id="addTask" onclick="toggleForm()">Add Task</button>
+
+
+        {{#if editing}}
+        <form id="taskForm" action="/main/task/{{taskID}}" method="POST" class="">
+        {{else}}
+        <form id="taskForm" action="/main/task" method="POST" class="hidden">
+        {{/if}}
+        <input type="text" placeholder="Name" id="name" name="name" value="{{task.task_name}}">
+        <textarea type="text" placeholder="Description" id="description" value="{{task.task_description}}"
+                  name="description">{{task.task_description}}</textarea>
+
+        <select id="priority" name="priority" required>
+            {{#if editing}}
+                <option value="1" {{#ifEquals task.task_priority 1 }}selected{{/ifEquals}}>1</option>
+                <option value="2" {{#ifEquals task.task_priority 2 }}selected{{/ifEquals}}>2</option>
+                <option value="3" {{#ifEquals task.task_priority 3 }}selected{{/ifEquals}}>3</option>
+                <option value="4" {{#ifEquals task.task_priority 4 }}selected{{/ifEquals}}>4</option>
+            {{else}}
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            {{/if}}
+        </select>
+        <input type="date" id="date" name="date" value="{{formatDate task.task_date}}">
+
+        <div class="edit-btns">
+            {{#if editing}}
+
+                <button class="editTask" type="submit">Edit Task</button>
+            {{else}}
+                <button class="addTask-edit" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="20px" height="20px">
+                        <path fill="#a5ace0"
+                              d="M40,77.5C19.322,77.5,2.5,60.678,2.5,40S19.322,2.5,40,2.5S77.5,19.322,77.5,40S60.678,77.5,40,77.5 z" />
+                        <path fill="#5e548e"
+                              d="M40,3c20.402,0,37,16.598,37,37S60.402,77,40,77S3,60.402,3,40S19.598,3,40,3 M40,2 C19.013,2,2,19.013,2,40s17.013,38,38,38s38-17.013,38-38S60.987,2,40,2L40,2z" />
+                        <path fill="#5e548e" d="M20 36H60V44H20z" />
+                        <path fill="#5e548e" d="M20 36H60V44H20z" transform="rotate(90 40 40)" />
+                    </svg>
+                </button>
+            {{/if}}
+            {{#if editing}}
+                <button type="button" class="cancel-but">
+                    <a href="/main">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="15px" height="15px">
+                            <path fill="#f78f8f"
+                                  d="M40 49.007L15.714 73.293 6.707 64.286 30.993 40 6.707 15.714 15.714 6.707 40 30.993 64.286 6.707 73.293 15.714 49.007 40 73.293 64.286 64.286 73.293z" />
+                            <path fill="#c74343"
+                                  d="M15.714,7.414l23.578,23.578L40,31.7l0.707-0.707L64.286,7.414l8.3,8.3L49.007,39.293L48.3,40 l0.707,0.707l23.578,23.579l-8.3,8.3L40.707,49.007L40,48.3l-0.707,0.707L15.714,72.586l-8.3-8.3l23.579-23.579L31.7,40 l-0.707-0.707L7.414,15.714L15.714,7.414 M64.286,6L40,30.286L15.714,6L6,15.714L30.286,40L6,64.286L15.714,74L40,49.714L64.286,74 L74,64.286L49.714,40L74,15.714L64.286,6L64.286,6z" />
+                        </svg>
+                    </a>
+                </button>
+            {{else}}
+                <button type="button" class="cancel-but toggle" onclick="toggleForm()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="15px" height="15px">
+                        <path fill="#f78f8f"
+                              d="M40 49.007L15.714 73.293 6.707 64.286 30.993 40 6.707 15.714 15.714 6.707 40 30.993 64.286 6.707 73.293 15.714 49.007 40 73.293 64.286 64.286 73.293z" />
+                        <path fill="#c74343"
+                              d="M15.714,7.414l23.578,23.578L40,31.7l0.707-0.707L64.286,7.414l8.3,8.3L49.007,39.293L48.3,40 l0.707,0.707l23.578,23.579l-8.3,8.3L40.707,49.007L40,48.3l-0.707,0.707L15.714,72.586l-8.3-8.3l23.579-23.579L31.7,40 l-0.707-0.707L7.414,15.714L15.714,7.414 M64.286,6L40,30.286L15.714,6L6,15.714L30.286,40L6,64.286L15.714,74L40,49.714L64.286,74 L74,64.286L49.714,40L74,15.714L64.286,6L64.286,6z" />
+                    </svg>
+                </button>
+            {{/if}}
+        </div>
     </div>
-  </body>
+</section>
+</body>
 </html>

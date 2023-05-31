@@ -25,6 +25,19 @@
     "hbs": "^4.2.0",
     "jsonwebtoken": "^9.0.0",
     "mysql": "^2.18.1",
+    "mysql2": "^3.3.2",
     "nodemon": "^2.0.22"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "jest-simple-dot-reporter": "^1.0.5",
+    "prettier": "^2.8.8"
+  },
+  "jest": {
+    "reporters": [
+      "default",
+      "jest-simple-dot-reporter"
+    ],
+    "collectCoverage": true
   }
 }

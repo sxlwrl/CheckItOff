@@ -1,7 +1,6 @@
 'use strict';
 
 const express = require('express');
-const mysql = require('mysql');
 const dotenv = require('dotenv');
 const path = require('path');
 const hbs = require('hbs');
@@ -15,18 +14,8 @@ dotenv.config({
     path: './src/.env',
 });
 
-const database = mysql.createConnection({
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASS,
-    database: process.env.DATABASE,
-});
-
-database.connect((err) => {
-    err ? console.log(err) : console.log('MySQL Connection Success');
-});
-
 app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 app.use(cookieParser());
 
 // handlebars
@@ -39,8 +28,18 @@ app.set('view engine', 'hbs');
 const partialsPath = path.join(__dirname, '../views/partials');
 hbs.registerPartials(partialsPath);
 
+hbs.registerHelper('formatDate', function(dateString) {
+    const date = new Date(dateString);
+    return `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}`;
+});
+
+hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
+    return (+arg1 === +arg2) ? options.fn(this) : options.inverse(this);
+});
+
 app.use('/', require('../routes/pages'));
 app.use('/auth', require('../routes/auth'));
+app.use('/main', require('../routes/task-router'));
 
 // app listen
 

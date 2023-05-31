@@ -2,5 +2,5 @@
 .prettierrc
 /.idea
 /src/.env
-/views/partials/preloader.hbs
-/public/css/preloader.css
+.prittierrc
+/coverage
