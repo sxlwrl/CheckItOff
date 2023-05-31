@@ -3,3 +3,4 @@
 /.idea
 /src/.env
 .prittierrc
+/coverage
