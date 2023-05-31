@@ -37,6 +37,7 @@
     "reporters": [
       "default",
       "jest-simple-dot-reporter"
-    ]
+    ],
+    "collectCoverage": true
   }
 }
