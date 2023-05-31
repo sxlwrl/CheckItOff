@@ -8,9 +8,9 @@ class Task {
 
             if (!req.body.name || !req.body.date) {
                 const tasks = await taskModel.getTasksByUserId(req.user.ID);
+                console.log(tasks)
                 const user = req.user;
-                const error = 'Invalid data to create a task';
-                return res.render('main', { tasks, user, error });
+                return res.render('main', { tasks, user, error: 'Invalid data to create a task'});
             }
 
             const taskData = {
