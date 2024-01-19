@@ -1,17 +1,18 @@
 {
   "name": "CheckItOff",
   "version": "1.0.0",
-  "description": "",
+  "description": "Todo list application",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/app.js"
+    "build": "",
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sxlwrl/CheckItOff.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "sxlwrl",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/sxlwrl/CheckItOff/issues"
@@ -25,12 +26,12 @@
     "hbs": "^4.2.0",
     "jsonwebtoken": "^9.0.0",
     "mysql": "^2.18.1",
-    "mysql2": "^3.3.2",
-    "nodemon": "^2.0.22"
+    "mysql2": "^3.3.2"
   },
   "devDependencies": {
     "jest": "^29.5.0",
     "jest-simple-dot-reporter": "^1.0.5",
+    "nodemon": "^3.0.3",
     "prettier": "^2.8.8"
   },
   "jest": {
